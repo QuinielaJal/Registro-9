@@ -76,6 +76,7 @@ function number(){
 function result(){
     results = localStorage.getItem("results");
     name = document.getElementById("nombre").value;
+    name  = name.split('*').join('');
     if (results){
         /*localStorage.setItem('results', results + "%0D" + res.join("%20%20"));*/
         if (aux > 1)
@@ -128,6 +129,7 @@ function clean(){
     for (var i=0; i<27;i++)
         spans[i].style.backgroundColor = "";
     document.getElementById("costo").innerHTML = "Costo: $0";
+    document.getElementById("numquinielas").innerHTML = "0 Quiniela(s)";
 }
 
 function updatedisplay(){
@@ -150,9 +152,12 @@ function clearname(){
 }
 
 function allowcombination(){
-    combinations=!combinations;
+    if (!combinations) 
+        combinations = confirm("¿Desea registras quinielas multiples?");
+    else
+        combinations= false;
+    document.getElementById("checkcombinaciones").checked = combinations;
     clean();
-
 }
 
 function calculate(){
@@ -197,6 +202,7 @@ function costoactual(){
              aux2*= res[i].length;
         }
         document.getElementById("costo").innerHTML = "Costo: $" + aux2*25;
+        document.getElementById("numquinielas").innerHTML = aux2 + " Quiniela(s)"
     }
 }
 
